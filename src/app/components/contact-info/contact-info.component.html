@@ -1,0 +1,21 @@
+
+<div *ngIf="contact; else errorTemplate">
+  <p><strong>Email:</strong> {{ contact?.email }}</p>
+  <p><strong>Teléfono:</strong> {{ contact?.phoneNumber }}</p>
+  <p>
+    <strong>LinkedIn:</strong>
+    <a [href]="contact?.linkedinUrl" target="_blank">{{ contact?.linkedinUrl }}</a>
+  </p>
+  <p>
+    <strong>GitHub:</strong>
+    <a [href]="contact?.githubUrl" target="_blank">{{ contact?.githubUrl }}</a>
+  </p>
+  <p><strong>Dirección:</strong> {{ contact?.address }}</p> <!-- Campo address -->
+</div>
+<ng-template #errorTemplate>
+  <p>{{ errorMessage }}</p>
+</ng-template>
+
+
+
+  
