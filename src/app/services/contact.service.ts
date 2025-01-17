@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
 
-// Define la interfaz para representar la respuesta del backend
+
 export interface Contact {
   email: string;
   phoneNumber: string;
@@ -15,13 +15,27 @@ export interface Contact {
   providedIn: 'root',
 })
 export class ContactService {
-  private apiUrl = 'http://localhost:8080/api/contact'; // URL del endpoint del backend
+  private apiUrl = 'http://localhost:8080/api/contact';
 
   constructor(private http: HttpClient) {}
 
-  // Método para obtener la información de contacto
-  getContactInfo(): Observable<Contact> {
-    return this.http.get<Contact>(this.apiUrl);
+  getContacts(): Observable<Contact> {
+    const token = localStorage.getItem('token');
+  
+    if (!token) {
+      console.error('Token no encontrado. Asegúrate de que el usuario esté autenticado.');
+      throw new Error('No se puede realizar la solicitud: el usuario no está autenticado.');
+    }
+  
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+  
+    return this.http.get<Contact>(this.apiUrl, { headers });
   }
+  
 }
+
+
+
 

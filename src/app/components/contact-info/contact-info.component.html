@@ -1,20 +1,21 @@
+<h2>Contactos</h2>
+<button (click)="loadContacts()">Cargar Contactos</button>
 
-<div *ngIf="contact; else errorTemplate">
-  <p><strong>Email:</strong> {{ contact?.email }}</p>
-  <p><strong>Teléfono:</strong> {{ contact?.phoneNumber }}</p>
+<div *ngIf="contacts; else noContacts">
   <p>
-    <strong>LinkedIn:</strong>
-    <a [href]="contact?.linkedinUrl" target="_blank">{{ contact?.linkedinUrl }}</a>
+    <strong>Email:</strong> {{ contacts.email }}<br />
+    <strong>Teléfono:</strong> {{ contacts.phoneNumber }}<br />
+    <strong>LinkedIn:</strong> <a [href]="contacts.linkedinUrl" target="_blank">{{ contacts.linkedinUrl }}</a><br />
+    <strong>GitHub:</strong> <a [href]="contacts.githubUrl" target="_blank">{{ contacts.githubUrl }}</a><br />
+    <strong>Dirección:</strong> {{ contacts.address }}
   </p>
-  <p>
-    <strong>GitHub:</strong>
-    <a [href]="contact?.githubUrl" target="_blank">{{ contact?.githubUrl }}</a>
-  </p>
-  <p><strong>Dirección:</strong> {{ contact?.address }}</p> <!-- Campo address -->
 </div>
-<ng-template #errorTemplate>
-  <p>{{ errorMessage }}</p>
+
+<ng-template #noContacts>
+  <p></p>
 </ng-template>
+
+
 
 
 
