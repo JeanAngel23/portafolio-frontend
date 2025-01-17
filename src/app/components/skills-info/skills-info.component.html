@@ -1,1 +1,12 @@
-<p>skills-info works!</p>
+<div class="container">
+    <h1>Habilidades</h1>
+    <button class="btn btn-primary" (click)="loadSkills()">Cargar Lista de Habilidades</button>
+    <ul *ngIf="skills.length > 0">
+      <li *ngFor="let skill of skills">
+        {{ skill.name }} - {{ skill.proficiencyLevel }}
+      </li>
+    </ul>
+    <p *ngIf="skills.length === 0"></p>
+  </div>
+  
+  
