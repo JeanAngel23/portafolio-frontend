@@ -1,3 +1,123 @@
+<!-- Botón para cargar proyectos -->
+<div class="text-center my-4">
+  <button (click)="loadProjects()" class="btn btn-primary">Cargar Proyectos</button>
+</div>
+
+<div class="container mt-4">
+  <h2 class="text-center">Gestión de Proyectos</h2>
+
+  <!-- Formulario para agregar proyectos -->
+  <div class="card my-4">
+    <div class="card-header">
+      <h4>Agregar Proyecto</h4>
+    </div>
+    <div class="card-body">
+      <form (ngSubmit)="addProject()">
+        <div class="mb-3">
+          <label for="name" class="form-label">Nombre del Proyecto</label>
+          <input
+            type="text"
+            id="name"
+            class="form-control"
+            [(ngModel)]="newProject.name"
+            name="name"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label for="description" class="form-label">Descripción</label>
+          <textarea
+            id="description"
+            class="form-control"
+            [(ngModel)]="newProject.description"
+            name="description"
+            required
+          ></textarea>
+        </div>
+        <div class="mb-3">
+          <label for="technologies" class="form-label">Tecnologías</label>
+          <input
+            type="text"
+            id="technologies"
+            class="form-control"
+            [(ngModel)]="newProject.technologies"
+            name="technologies"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label for="github_url" class="form-label">URL de GitHub</label>
+          <input
+            type="url"
+            id="github_url"
+            class="form-control"
+            [(ngModel)]="newProject.github_url"
+            name="github_url"
+            required
+          />
+        </div>
+        <button type="submit" class="btn btn-primary">Agregar Proyecto</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Lista de proyectos -->
+  <div *ngIf="projects.length > 0; else noProjects">
+    <div *ngFor="let project of projects" class="card my-3">
+      <div class="card-body">
+        <h5 class="card-title">
+          <input
+            type="text"
+            [(ngModel)]="project.name"
+            class="form-control d-inline-block w-auto"
+            readonly
+            (dblclick)="project.isEditing = true"
+            *ngIf="!project.isEditing; else editName"
+          />
+          <ng-template #editName>
+            <input
+              type="text"
+              [(ngModel)]="project.name"
+              class="form-control d-inline-block w-auto"
+              (blur)="project.isEditing = false; updateProject(project)"
+            />
+          </ng-template>
+        </h5>
+        <p class="card-text">
+          <strong>Descripción:</strong>
+          <span *ngIf="!project.isEditing; else editDescription">{{
+            project.description
+          }}</span>
+        </p>
+        <ng-template #editDescription>
+          <textarea
+            class="form-control"
+            [(ngModel)]="project.description"
+            (blur)="project.isEditing = false; updateProject(project)"
+          ></textarea>
+        </ng-template>
+        <p><strong>Tecnologías:</strong> {{ project.technologies }}</p>
+        <p>
+          <strong>GitHub:</strong>
+          <a [href]="project.github_url" target="_blank">{{ project.github_url }}</a>
+        </p>
+        <button
+          class="btn btn-danger"
+          (click)="deleteProject(project.id!)"
+        >
+          Eliminar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Plantilla para cuando no haya proyectos -->
+  <ng-template #noProjects>
+    <p class="text-center text-muted">No hay proyectos disponibles.</p>
+  </ng-template>
+</div>
 
 
-<p>project-list works!</p>
+
+
+
