@@ -1,3 +1,40 @@
+
+<ul
+  class="nav nav-pills nav-fill gap-2 p-1 small bg-primary rounded-5 shadow-sm"
+  id="pillNav2"
+  role="tablist"
+  style="--bs-nav-link-color: var(--bs-white); --bs-nav-pills-link-active-color: var(--bs-primary); --bs-nav-pills-link-active-bg: var(--bs-white);"
+>
+  <li class="nav-item" role="presentation">
+    <a
+      routerLink="/projects"
+      class="nav-link rounded-5"
+      [class.active]="activeTab === 'projects'"
+      (click)="setActiveTab('projects')"
+      >Projects</a
+    >
+  </li>
+  <li class="nav-item" role="presentation">
+    <a
+      routerLink="/skills"
+      class="nav-link rounded-5"
+      [class.active]="activeTab === 'skills'"
+      (click)="setActiveTab('skills')"
+      >Skills</a
+    >
+  </li>
+  <li class="nav-item" role="presentation">
+    <a
+      routerLink="/contact"
+      class="nav-link rounded-5"
+      [class.active]="activeTab === 'contact'"
+      (click)="setActiveTab('contact')"
+      >Contact</a
+    >
+  </li>
+</ul>
+
+
 <div *ngIf="isAuthenticated; else loginLayout">
   <!-- Layout con navegación -->
   <mat-toolbar color="primary" class="logout-toolbar">
