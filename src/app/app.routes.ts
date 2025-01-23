@@ -2,29 +2,47 @@ import { Routes } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
 import { ProjectListComponent } from './components/project-list/project-list.component';
 import { authGuard } from './guards/auth.guard';
-import { SkillsInfoComponent } from './components/skills-info/skills-info.component'; // Ajuste para Skills
-import { ContactInfoComponent } from './components/contact-info/contact-info.component'; // Ajuste para Contact
+import { SkillsInfoComponent } from './components/skills-info/skills-info.component';
+import { ContactInfoComponent } from './components/contact-info/contact-info.component';
+import { PortafolioInfoComponent } from './components/portafolio-info/portafolio-info.component';
 
 export const routes: Routes = [
-  { path: '', redirectTo: '/login', pathMatch: 'full' }, // Ruta inicial por defecto
-  { path: 'login', component: LoginComponent }, // Componente de login
+  {
+    path: '', 
+    redirectTo: '/login', 
+    pathMatch: 'full' // Redirige a la ruta de login si la ruta está vacía
+  },
+  { 
+    path: 'login', 
+    component: LoginComponent 
+  },
   { 
     path: 'projects', 
     component: ProjectListComponent, 
-    canActivate: [authGuard], // Protección con guard
+    canActivate: [authGuard] // Protege la ruta con el guard de autenticación
   },
   { 
     path: 'skills', 
-    component: SkillsInfoComponent, // Componente de habilidades
-    canActivate: [authGuard], // Protección con guard
+    component: SkillsInfoComponent, 
+    canActivate: [authGuard] 
   },
   { 
     path: 'contact', 
-    component: ContactInfoComponent, // Componente de contacto
-    canActivate: [authGuard], // Protección con guard
+    component: ContactInfoComponent, 
+    canActivate: [authGuard] 
   },
-  { path: '**', redirectTo: '/login', pathMatch: 'full' }, // Ruta wildcard para rutas no encontradas
+  {
+    path: 'portafolio', 
+    component: PortafolioInfoComponent, 
+    // No se añade el `authGuard` aquí para que no herede lógica de autenticación (opcional)
+  },
+  { 
+    path: '**', 
+    redirectTo: '/login', 
+    pathMatch: 'full' // Redirige a login cualquier ruta no encontrada
+  }
 ];
+
 
 
 

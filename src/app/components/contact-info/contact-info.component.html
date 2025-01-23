@@ -2,18 +2,16 @@
 <button (click)="loadContacts()">Cargar Contactos</button>
 
 <div *ngIf="contacts; else noContacts">
-  <p>
-    <strong>Email:</strong> {{ contacts.email }}<br />
-    <strong>Teléfono:</strong> {{ contacts.phoneNumber }}<br />
-    <strong>LinkedIn:</strong> <a [href]="contacts.linkedinUrl" target="_blank">{{ contacts.linkedinUrl }}</a><br />
-    <strong>GitHub:</strong> <a [href]="contacts.githubUrl" target="_blank">{{ contacts.githubUrl }}</a><br />
-    <strong>Dirección:</strong> {{ contacts.address }}
-  </p>
+
+  <pre>
+    {{ contacts | json }}
+  </pre>
 </div>
 
 <ng-template #noContacts>
-  <p></p>
+  <p>No hay contactos disponibles.</p>
 </ng-template>
+
 
 
 
