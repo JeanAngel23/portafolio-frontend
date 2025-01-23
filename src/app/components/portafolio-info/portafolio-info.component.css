@@ -1,0 +1,9 @@
+#login-button{
+    display: flex;
+    
+    align-items: flex-end;
+    padding: 1em 1em;
+
+    border-radius: 20px;
+
+}

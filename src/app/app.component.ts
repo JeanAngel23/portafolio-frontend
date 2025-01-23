@@ -1,11 +1,9 @@
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
-import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { isPlatformBrowser } from '@angular/common';
-import { Inject, PLATFORM_ID } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { RouterModule, Router, NavigationEnd } from '@angular/router';
+import { Component, Inject, PLATFORM_ID } from '@angular/core';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -22,12 +20,14 @@ import { Inject, PLATFORM_ID } from '@angular/core';
 export class AppComponent {
   isAuthenticated: boolean = false;
   activeTab: string = 'projects'; // Pestaña activa por defecto
+  isPortafolioRoute: boolean = false; // Verifica si la ruta es '/portafolio'
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
     private router: Router
   ) {
     this.checkAuthentication();
+    this.listenToRouteChanges(); // Escucha los cambios de la ruta
   }
 
   // Verifica si el usuario está autenticado
@@ -35,6 +35,15 @@ export class AppComponent {
     if (isPlatformBrowser(this.platformId)) {
       this.isAuthenticated = !!localStorage.getItem('token');
     }
+  }
+
+  // Escucha cambios en la ruta para controlar la visibilidad del layout
+  listenToRouteChanges(): void {
+    this.router.events
+      .pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe((event: NavigationEnd) => {
+        this.isPortafolioRoute = event.url.includes('/portafolio');
+      });
   }
 
   // Maneja el logout del usuario
@@ -57,4 +66,5 @@ export class AppComponent {
     this.activeTab = tab;
   }
 }
+
 
