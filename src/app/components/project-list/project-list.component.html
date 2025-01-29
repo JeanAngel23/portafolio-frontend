@@ -6,60 +6,7 @@
 <div class="container mt-4">
   <h2 class="text-center">Gestión de Proyectos</h2>
 
-  <!-- Formulario para agregar proyectos -->
-  <div class="card my-4">
-    <div class="card-header">
-      <h4>Agregar Proyecto</h4>
-    </div>
-    <div class="card-body">
-      <form (ngSubmit)="addProject()">
-        <div class="mb-3">
-          <label for="name" class="form-label">Nombre del Proyecto</label>
-          <input
-            type="text"
-            id="name"
-            class="form-control"
-            [(ngModel)]="newProject.name"
-            name="name"
-            required
-          />
-        </div>
-        <div class="mb-3">
-          <label for="description" class="form-label">Descripción</label>
-          <textarea
-            id="description"
-            class="form-control"
-            [(ngModel)]="newProject.description"
-            name="description"
-            required
-          ></textarea>
-        </div>
-        <div class="mb-3">
-          <label for="technologies" class="form-label">Tecnologías</label>
-          <input
-            type="text"
-            id="technologies"
-            class="form-control"
-            [(ngModel)]="newProject.technologies"
-            name="technologies"
-            required
-          />
-        </div>
-        <div class="mb-3">
-          <label for="github_url" class="form-label">URL de GitHub</label>
-          <input
-            type="url"
-            id="github_url"
-            class="form-control"
-            [(ngModel)]="newProject.github_url"
-            name="github_url"
-            required
-          />
-        </div>
-        <button type="submit" class="btn btn-primary">Agregar Proyecto</button>
-      </form>
-    </div>
-  </div>
+
 
   <!-- Lista de proyectos -->
   <div *ngIf="projects.length > 0; else noProjects">
@@ -115,6 +62,10 @@
   <ng-template #noProjects>
     <p class="text-center text-muted">No hay proyectos disponibles.</p>
   </ng-template>
+</div>
+
+<div class="loadProjects">
+  <button (click)="navigateToAddProjects()" class="btn btn-primary">+</button>
 </div>
 
 

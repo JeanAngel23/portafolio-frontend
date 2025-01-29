@@ -16,7 +16,7 @@ export interface ViewProject {
   providedIn: 'root'
 })
 export class ViewProjectService {
-  private apiUrl = 'http://localhost:8080/api/view-projects'
+  private apiUrl = 'http://localhost:8080/api/projects'
 
   constructor(private http: HttpClient) { }
 

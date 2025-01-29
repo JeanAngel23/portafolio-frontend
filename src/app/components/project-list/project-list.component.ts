@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Project, ProjectService } from '../../services/project.service';
 import { CommonModule } from '@angular/common'; // Importar CommonModule
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -21,7 +22,8 @@ export class ProjectListComponent implements OnInit {
     github_url: '',
   };
 
-  constructor(private projectService: ProjectService) {}
+  constructor(private projectService: ProjectService, private router: Router) {}
+  
 
   ngOnInit(): void {
     this.loadProjects();
@@ -32,6 +34,10 @@ export class ProjectListComponent implements OnInit {
       next: (data) => (this.projects = data),
       error: (err) => console.error('Error al cargar proyectos:', err),
     });
+  }
+
+  navigateToAddProjects(): void {
+    this.router.navigate(['/view-projects']);
   }
 
   addProject(): void {
