@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
 
 export interface Project {
   id?: number;
@@ -27,8 +29,12 @@ export class ProjectService {
     }
   
     const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
-    return this.http.get<Project[]>(this.apiUrl, { headers });
+  
+    return this.http.get<any>(this.apiUrl, { headers }).pipe(
+      map(response => response._embedded?.dataListProjectList || []) // Extrae los proyectos
+    );
   }
+  
 
   createProject(project: Project): Observable<Project> {
     const token = localStorage.getItem('token');
