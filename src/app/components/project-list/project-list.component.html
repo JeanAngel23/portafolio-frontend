@@ -1,3 +1,74 @@
+<!-- Botón para cargar proyectos -->
+<div class="text-center my-4">
+  <button (click)="loadProjects()" class="btn btn-primary">Cargar Proyectos</button>
+</div>
+
+<div class="container mt-4">
+  <h2 class="text-center">Gestión de Proyectos</h2>
 
 
-<p>project-list works!</p>
+
+  <!-- Lista de proyectos -->
+  <div *ngIf="projects.length > 0; else noProjects">
+    <div *ngFor="let project of projects" class="card my-3">
+      <div class="card-body">
+        <h5 class="card-title">
+          <input
+            type="text"
+            [(ngModel)]="project.name"
+            class="form-control d-inline-block w-auto"
+            readonly
+            (dblclick)="project.isEditing = true"
+            *ngIf="!project.isEditing; else editName"
+          />
+          <ng-template #editName>
+            <input
+              type="text"
+              [(ngModel)]="project.name"
+              class="form-control d-inline-block w-auto"
+              (blur)="project.isEditing = false; updateProject(project)"
+            />
+          </ng-template>
+        </h5>
+        <p class="card-text">
+          <strong>Descripción:</strong>
+          <span *ngIf="!project.isEditing; else editDescription">{{
+            project.description
+          }}</span>
+        </p>
+        <ng-template #editDescription>
+          <textarea
+            class="form-control"
+            [(ngModel)]="project.description"
+            (blur)="project.isEditing = false; updateProject(project)"
+          ></textarea>
+        </ng-template>
+        <p><strong>Tecnologías:</strong> {{ project.technologies }}</p>
+        <p>
+          <strong>GitHub:</strong>
+          <a [href]="project.github_url" target="_blank">{{ project.github_url }}</a>
+        </p>
+        <button
+          class="btn btn-danger"
+          (click)="deleteProject(project.id!)"
+        >
+          Eliminar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Plantilla para cuando no haya proyectos -->
+  <ng-template #noProjects>
+    <p class="text-center text-muted">No hay proyectos disponibles.</p>
+  </ng-template>
+</div>
+
+<div class="loadProjects">
+  <button (click)="navigateToAddProjects()" class="btn btn-primary">+</button>
+</div>
+
+
+
+
+

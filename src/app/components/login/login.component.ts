@@ -10,6 +10,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { environment } from '../../../environments/environment';
 
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -68,6 +69,11 @@ export class LoginComponent {
       this.errorMessage = 'Por favor, llena todos los campos.';
     }
   }
+
+  navigateToPortfolio(): void {
+    this.router.navigate(['/portafolio']);
+  }
+
 }
 
 

@@ -1,3 +1,20 @@
+pre {
+  background-color: #f4f4f9; /* Fondo suave */
+  color: #333; /* Color del texto */
+  border: 1px solid #ddd; /* Borde del contenedor */
+  border-radius: 5px; /* Bordes redondeados */
+  padding: 15px; /* Espaciado interno */
+  font-family: 'Courier New', Courier, monospace; /* Tipografía de código */
+  font-size: 14px; /* Tamaño de la fuente */
+  line-height: 1.5; /* Altura de las líneas */
+  white-space: pre-wrap; /* Ajuste de texto para evitar desbordamientos */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra para darle profundidad */
+  overflow-x: auto; /* Desplazamiento horizontal si el JSON es muy ancho */
+}
+
+
+
+
 h2 {
     color: #007bff;
   }

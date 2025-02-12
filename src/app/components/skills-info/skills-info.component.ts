@@ -6,8 +6,8 @@ import { CommonModule } from '@angular/common'; // Importar CommonModule
   selector: 'app-skills-info',
   templateUrl: './skills-info.component.html',
   styleUrls: ['./skills-info.component.css'],
-  standalone: true, // Convertirlo en standalone
-  imports: [CommonModule], // Agregar CommonModule aquí
+  standalone: true,
+  imports: [CommonModule], 
 })
 export class SkillsInfoComponent implements OnInit {
   skills: Skill[] = []; // Lista de habilidades
@@ -27,5 +27,28 @@ export class SkillsInfoComponent implements OnInit {
       },
     });
   }
+
+getWidth(proficiencyLevel: string): string {
+  switch (proficiencyLevel) {
+    case 'Advanced':
+      return '75%'; 
+    case 'Intermediate':
+      return '60%'; 
+    default:
+      return '25%'; // Ancho predeterminado para niveles desconocidos
+  }
+}
+
+
+getBarClass(proficiencyLevel: string): string {
+  switch (proficiencyLevel) {
+    case 'Advanced':
+      return 'bg-success'; 
+    case 'Intermediate':
+      return 'bg-warning'; 
+    default:
+      return 'bg-secondary'; 
+  }
+}
 }
 
