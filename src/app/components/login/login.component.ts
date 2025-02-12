@@ -8,6 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -27,6 +28,8 @@ export class LoginComponent {
   loginForm: FormGroup;
   errorMessage: string = '';
 
+  private apiUrl = environment.apiUrl;
+
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -41,17 +44,25 @@ export class LoginComponent {
   onSubmit() {
     if (this.loginForm.valid) {
       const { username, password } = this.loginForm.value;
-      this.http.post('http://localhost:8080/login', { username, password }).subscribe({
-        next: (response: any) => {
-          // Guarda el token en localStorage
-          localStorage.setItem('token', response.jwtToken);
+      this.http.post(`${this.apiUrl}/login`, { username, password }, { observe: 'response' })
+      .subscribe({
+        next: (response) => {
+          console.log('Respuesta:', response);
+          const body: any = response.body;
+          if (body?.jwtToken) {
+            // Guarda el token en localStorage
+            localStorage.setItem('token', body.jwtToken);
 
-          // Redirige a la vista de proyectos
-          this.router.navigate(['/projects']);
+            // Redirige a la vista de proyectos
+            this.router.navigate(['/projects']);
+          } else {
+            console.error('No se recibió un token en la respuesta.');
+          }
         },
         error: (error) => {
-          this.errorMessage = 'Credenciales inválidas';
-        },
+          console.error('Error en la petición:', error);
+          this.errorMessage = `Error: ${error.message}`;
+        }
       });
     } else {
       this.errorMessage = 'Por favor, llena todos los campos.';

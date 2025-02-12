@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 
 export interface Contact {
@@ -15,25 +16,25 @@ export interface Contact {
   providedIn: 'root',
 })
 export class ContactService {
-  private apiUrl = 'http://localhost:8080/api/contact';
+  private apiUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) {}
 
   getContacts(): Observable<Contact> {
     const token = localStorage.getItem('token');
-  
+
     if (!token) {
       console.error('Token no encontrado. Asegúrate de que el usuario esté autenticado.');
       throw new Error('No se puede realizar la solicitud: el usuario no está autenticado.');
     }
-  
+
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`,
     });
-  
-    return this.http.get<Contact>(this.apiUrl, { headers });
+
+    return this.http.get<Contact>(`${this.apiUrl}/api/contact`, { headers });
   }
-  
+
 }
 
 

@@ -8,18 +8,18 @@ import { ContactInfoComponent } from './components/contact-info/contact-info.com
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' }, // Ruta inicial por defecto
   { path: 'login', component: LoginComponent }, // Componente de login
-  { 
-    path: 'projects', 
-    component: ProjectListComponent, 
+  {
+    path: 'projects',
+    component: ProjectListComponent,
     canActivate: [authGuard], // Protección con guard
   },
-  { 
-    path: 'skills', 
+  {
+    path: 'skills',
     component: SkillsInfoComponent, // Componente de habilidades
     canActivate: [authGuard], // Protección con guard
   },
-  { 
-    path: 'contact', 
+  {
+    path: 'contact',
     component: ContactInfoComponent, // Componente de contacto
     canActivate: [authGuard], // Protección con guard
   },
